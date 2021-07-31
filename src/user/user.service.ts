@@ -16,11 +16,11 @@ export class UserService {
   }
 
   /**
+   * Get user by id
+   *
    * @param  {number} id
    */
   async getUser(id: number) {
-    // * if user is not found return 404
-
     const user = await this.userRepository.findOne({
       where: {
         id: id,
@@ -32,6 +32,19 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async deleteUserById(id: number) {
+    try {
+      await this.userRepository.delete(id);
+    } catch (err) {
+      console.log(err);
+    }
+
+    return {
+      statusCode: 200,
+      message: 'Users fetched successfully',
+    };
   }
 
   /**
